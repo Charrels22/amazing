@@ -5,7 +5,7 @@ const Home = () => {
         <div className={style.Wrapper}>
             <div className={style.TitleWrapper}>
                 <div className={style.Title}>
-                    Home
+                    Home Page
                 </div>
             </div>
         </div>
