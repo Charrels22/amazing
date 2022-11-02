@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 //import App from './App';/
 import './index.css';
@@ -7,6 +7,7 @@ import Login from './components/pages/Login/login';
 import Header from './components/header/header';
 
 import { RouterProvider, createBrowserRouter,BrowserRouter, Route, Routes } from 'react-router-dom';
+import UserContext from './contexts/user-context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -30,9 +31,18 @@ const router = createBrowserRouter([
   },
 ])
 
+const App = () => {
+  const [logged, setLogged] = useState(false)
+
+  return(
+    <React.StrictMode>
+      <UserContext.Provider value={{logged, setLogged}}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
+    </React.StrictMode>
+  )
+}
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <App/>
 );
 
