@@ -1,12 +1,14 @@
 import style from './login.module.css';
 import useUser from '../../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-    const { logged, setLogged } = useUser()
+const Login = () => {
+    const { setLogged } = useUser()
+    const navigate = useNavigate()
 
     const makeFakeLogin = () => {
         setLogged(true)
-        window.location.replace('/')
+        navigate('/')
     }
     return (
         <div className={style.Wrapper}>
@@ -15,11 +17,13 @@ const Home = () => {
                     Login Page
                 </div>
             </div>
+            <div className={style.ButtomWrapper}>
             <button onClick={makeFakeLogin}>
                 Login
             </button>
+            </div>
         </div>
     )
 }
 
-export default Home;
+export default Login;
