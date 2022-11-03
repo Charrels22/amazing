@@ -1,12 +1,14 @@
 import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-//import App from './App';/
+
+import { RouterProvider, createBrowserRouter,BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
+
+
 import Home from './components/pages/Home/home';
 import Login from './components/pages/Login/login';
 import Header from './components/header/header';
-
-import { RouterProvider, createBrowserRouter,BrowserRouter, Route, Routes } from 'react-router-dom';
+import Profile from './components/pages/profile/profile';
 import UserContext from './contexts/user-context';
 
 
@@ -29,14 +31,24 @@ const router = createBrowserRouter([
     path: "/login",
     element: withHeader(<Login />),
   },
+  {
+    path: "/profile",
+    element: withHeader(<Profile />),
+  },
 ])
 
 const App = () => {
-  const [logged, setLogged] = useState(false)
-
+  
+  const storageLogged = localStorage.getItem('logged') ?? false
+  const [logged, setLogged] = useState(storageLogged)
+  const setLoggedAndStore = (isLogged) => {
+    setLogged(isLogged)
+    localStorage.setItem('logged', isLogged)
+  }
+  
   return(
     <React.StrictMode>
-      <UserContext.Provider value={{logged, setLogged}}>
+      <UserContext.Provider value={{logged, setLogged:setLoggedAndStore}}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </React.StrictMode>
